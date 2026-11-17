@@ -132,8 +132,10 @@ const splitAlternatives = (s) => {
       if (TRAILING_OBJECT_RE.test(prev)) alternatives.push(prev.replace(TRAILING_OBJECT_RE, ' ' + part));
       return;
     }
-    // Never accept endings ("-a") or one-letter fragments as a standalone answer.
-    if (parts.length > 1 && (part.startsWith('-') || letterCount(part) < 2)) return;
+    // Never accept endings ("-a") or one-letter fragments as a standalone answer –
+    // except real one-letter words given as " / " alternatives ("ē / ex", "ā / ab").
+    const oneLetterWord = letterCount(part) === 1 && / \/ /.test(s) && !/,/.test(s.replace(/\([^()]*\)/g, ''));
+    if (parts.length > 1 && (part.startsWith('-') || (letterCount(part) < 2 && !oneLetterWord))) return;
     alternatives.push(part);
   });
   return alternatives;
@@ -142,7 +144,7 @@ const splitAlternatives = (s) => {
 // ── Step 5: brackets ─────────────────────────────────────────────────────────
 // Grammar hints are dropped entirely; any other bracket content is optional.
 // Latin grammar notes: gender, word class, case, "nachgestellt", "1. Pers. Sg." …
-const LATIN_HINT_RE = /^(m|f|n|pl|adv|präp|subj|akk|dat|abl|nom|gen|nachgestellt|betont|angehängt|ā m|dē m|\d\. pers)(?![\p{L}])|^im /iu;
+const LATIN_HINT_RE = /^(m|f|n|pl|adv|präp|subj|akk|dat|abl|nom|gen|nachgestellt|betont|angehängt|ā m|dē m|\d\. pers)(?![\p{L}])|^im (hauptsatz|dir)/iu;
 const isGrammarHint = (content, attached) => {
   const c = content.trim();
   if (/^[-+]/.test(c)) return true;                                          // (-ue-) (-zco) (+ inf.)
@@ -238,6 +240,7 @@ export const compareAnswers = (userInput, correctAnswer) => {
 // Short feedback text for a correct answer with a hint.
 export const hintMessage = (hint) => ({
   accent: 'Akzente beachten',
+  forms: 'gewertet wurde die Grundform',
   article: 'Artikel nicht vergessen',
   'article-accent': 'Artikel und Akzente beachten',
 }[hint] ?? '');

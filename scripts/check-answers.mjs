@@ -36,7 +36,7 @@ for (const [grade, { topics }] of Object.entries(vocabByGrade)) {
         // One-letter answers are fine only if the word itself is one letter ("y", "e (vor i und hi)").
         const core = [normalizeAnswer(answer), normalizeAnswer(withoutBrackets(answer))];
         for (const v of getAcceptedAnswers(answer)) {
-          if (letterCount(v) < 2 && !core.includes(v)) errors.push(`${where} akzeptiert zu kurze Alternative "${v}"`);
+          if (letterCount(v) < 2 && !core.includes(v) && !/ \/ /.test(answer)) errors.push(`${where} akzeptiert zu kurze Alternative "${v}"`);
         }
       }
     }
@@ -59,6 +59,15 @@ const SYNONYMS = [
   ['tantum', { la: 'sōlum (Adv.)', de: 'nur' }, 'de2la', true],
   ['dann', { la: 'post (Präp. m. Akk.)', de: 'hinter, nach' }, 'la2de', false],
   ['wollen', { la: 'velle, volō', de: 'wollen' }, 'la2de', true],
+  // Lists typed by the learner
+  ['er, sie, es', { la: 'is, ea, id', de: 'dieser, diese, dieses; er, sie, es' }, 'la2de', true],
+  ['er, sie, sowieso', { la: 'is, ea, id', de: 'dieser, diese, dieses; er, sie, es' }, 'la2de', false],
+  ['amicus, amici', { la: 'amīcus, amīcum (m)', de: 'der Freund' }, 'de2la', true],
+  ['cogitare, cogito', { la: 'cōgitāre, cōgitat', de: 'denken' }, 'de2la', true],
+  ['cogito, cogitare', { la: 'cōgitāre, cōgitat', de: 'denken' }, 'de2la', true],
+  ['amare, cogitat', { la: 'cōgitāre, cōgitat', de: 'denken' }, 'de2la', false],
+  ['e', { la: 'ē / ex (Präp. m. Abl.)', de: 'aus' }, 'de2la', true],
+  ['a', { la: 'ā / ab (Präp. m. Abl.)', de: 'von' }, 'de2la', true],
 ];
 for (const [input, word, dir, expected] of SYNONYMS) {
   if (checkAnswer(input, word, dir).isCorrect !== expected)
@@ -89,6 +98,13 @@ const EXAMPLES = [
   ['alle', 'jeder, ganz; (Pl.) alle', true],
   ['der Antrag', 'der Antrag (im Senat), die Meinung, der Satz, der Sinn', true],
   ['sicher', 'sicher (vor)', true],
+  ['Schau!', 'Schau! / Schaut! / Sieh da! / Seht da!', true],
+  ['wie', 'wie? / auf welche Weise?', true],
+  ['die erste', 'der / die / das erste', true],
+  ['das letzte', 'der / die / das äußerste, der / die / das entfernteste, der / die / das letzte', true],
+  ['die Begleiterin', 'der / die Begleiter(in), der Gefährte', true],
+  ['sich freuen über', 'sich freuen über (etw.)', true],
+  ['der Antrag im Senat', 'der Antrag (im Senat), die Meinung', true],
   ['domina', 'dominus (m)', false],
   ['m', 'dominus (m)', false],
 ];

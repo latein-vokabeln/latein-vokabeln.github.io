@@ -571,7 +571,7 @@ function TypingMode({ words, fromMistakes, onBack }) {
           disabled={!!feedback}
           onKeyDown={e => { if (e.key === 'Enter' && !feedback) submit(); }}
           className="w-full px-4 py-3 border-2 border-gray-200 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-100 rounded-xl focus:border-amber-400 focus:outline-none text-lg font-semibold text-center"
-          placeholder="Übersetzung eingeben…"
+          placeholder={cardDir === 'de2la' ? 'Lateinische Grundform eingeben…' : 'Deutsche Bedeutung eingeben…'}
         />
         {!feedback && (
           <>
