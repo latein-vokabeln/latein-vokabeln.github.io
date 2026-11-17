@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+  <defs><linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#9f1239"/><stop offset="100%" stop-color="#b45309"/></linearGradient></defs>
+  <rect width="512" height="512" rx="96" fill="url(#bg)"/>
+  <!-- Gold bands like a Roman banner -->
+  <rect x="64" y="96" width="384" height="16" rx="8" fill="#fbbf24"/>
+  <rect x="64" y="400" width="384" height="16" rx="8" fill="#fbbf24"/>
+  <text x="256" y="335" font-family="Georgia, 'Times New Roman', serif" font-size="230" font-weight="700" text-anchor="middle" fill="white">LA</text>
+</svg>

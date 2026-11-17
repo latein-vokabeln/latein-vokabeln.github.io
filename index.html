@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="de">
+  <head>
+    <script>
+      (function(){
+        var t=null;
+        try{t=localStorage.getItem('theme');}catch(e){}
+        var d=t?t==='dark':window.matchMedia('(prefers-color-scheme: dark)').matches;
+        if(d)document.documentElement.setAttribute('data-theme','dark');
+        var m=document.createElement('meta');m.name='theme-color';m.content=d?'#0d0d1a':'#9f1239';
+        document.head.appendChild(m);
+      })();
+    </script>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Latein Vokabeln – Lektion 1–14</title>
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+    <meta name="mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+    <meta name="apple-mobile-web-app-title" content="Latein" />
+    <script type="module" crossorigin src="/assets/index-BTBhgh9m.js"></script>
+    <link rel="stylesheet" crossorigin href="/assets/index-Dqoylen0.css">
+  <link rel="manifest" href="/manifest.webmanifest"><script id="vite-plugin-pwa:register-sw" src="/registerSW.js"></script></head>
+  <body>
+    <div id="root"></div>
+  </body>
+</html>
